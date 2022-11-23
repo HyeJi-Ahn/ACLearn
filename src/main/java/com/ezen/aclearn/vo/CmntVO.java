@@ -8,8 +8,8 @@ public class CmntVO {
 	private String userNickname;
 	private String cmntTitle;
 	private String cmntContents;
-	private String lctrOriImg;
-	private String lctrNowImg;
+	private String cmntOriImg;
+	private String cmntNowImg;
 	private Date cmntRegdate;
 	private Date cmntModfdate;
 	private char cmntDelYn;
@@ -54,20 +54,20 @@ public class CmntVO {
 		this.cmntContents = cmntContents;
 	}
 
-	public String getLctrOriImg() {
-		return lctrOriImg;
+	public String getCmntOriImg() {
+		return cmntOriImg;
 	}
 
-	public void setLctrOriImg(String lctrOriImg) {
-		this.lctrOriImg = lctrOriImg;
+	public void setCmntOriImg(String cmntOriImg) {
+		this.cmntOriImg = cmntOriImg;
 	}
 
-	public String getLctrNowImg() {
-		return lctrNowImg;
+	public String getCmntNowImg() {
+		return cmntNowImg;
 	}
 
-	public void setLctrNowImg(String lctrNowImg) {
-		this.lctrNowImg = lctrNowImg;
+	public void setCmntNowImg(String cmntNowImg) {
+		this.cmntNowImg = cmntNowImg;
 	}
 
 	public Date getCmntRegdate() {
@@ -97,9 +97,11 @@ public class CmntVO {
 	@Override
 	public String toString() {
 		return "CmntVO [cmntCode=" + cmntCode + ", userId=" + userId + ", userNickname=" + userNickname + ", cmntTitle="
-				+ cmntTitle + ", cmntContents=" + cmntContents + ", lctrOriImg=" + lctrOriImg + ", lctrNowImg="
-				+ lctrNowImg + ", cmntRegdate=" + cmntRegdate + ", cmntModfdate=" + cmntModfdate + ", cmntDelYn="
+				+ cmntTitle + ", cmntContents=" + cmntContents + ", cmntOriImg=" + cmntOriImg + ", cmntNowImg="
+				+ cmntNowImg + ", cmntRegdate=" + cmntRegdate + ", cmntModfdate=" + cmntModfdate + ", cmntDelYn="
 				+ cmntDelYn + "]";
 	}
+
+	
 
 }

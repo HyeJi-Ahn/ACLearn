@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CmntDAO">
+	<select id="getCmntList" resultType="cmnt">
+		SELECT * 
+			FROM AL_COMMUNITY 
+	</select>
+	
+	<insert id="addCmnt" parameterType="cmnt">
+		INSERT INTO AL_COMMUNITY 
+		VALUES (
+			(SELECT IFNULL(MAX(A.CMNT_NO), 0) + 1 FROM AL_COMMUNITY A),	
+			#{userId},
+			#{userNickname},
+			#{cmntTitle},
+			#{cmntContents},
+			#{cmntOriImg},
+			#{cmntNowImg},
+			now(),
+			now(),
+			'Y'	
+		)
+	</insert>
+
+	<update id="updCmnt" parameterType="cmnt">
+		UPDATE AL_COMMUNITY 
+			SET CMNT_TITLE = #{cmntTitle}, 
+				CMNT_CONTENTS = #{cmntContents},
+				CMNT_MODFDATE = now()
+			WHERE CMNT_NO = #{cmntNo}
+	</update>
+
+	
+
+
+</mapper>
