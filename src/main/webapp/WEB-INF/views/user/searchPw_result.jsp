@@ -5,13 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-
-</style>
 </head>
 <body>
-	<footer>
-	
-	</footer>
+
+<script>
+
+</script>
+
 </body>
 </html>
