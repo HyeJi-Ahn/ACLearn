@@ -21,30 +21,67 @@
 </head>
 <body>
     <jsp:include page="${pageContext.request.contextPath }/header.jsp"></jsp:include>
-    
+ 	${cmntList }
 	<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" id="container">
 		<h3>커뮤니티 글 목록</h3>
-		<c:forEach items="${cmntList}" var="cmnt">
-			<div>
-				글번호 : ${cmnt.cmntCode}
-				${cmnt.userId}
-				${cmnt.userNickname}
-				${cmnt.cmntTitle}
-				${cmnt.cmntContents}
-				${cmnt.cmntOriImg}
-				${cmnt.cmntNowImg}
-				<fmt:formatDate value="${cmnt.cmntRegdate}" pattern="yyyy-MM-dd"/>
-				${cmnt.cmntModfdate}
-				${cmnt.cmntDelYn}
-			</div>
-		</c:forEach>
+		<form id="searchForm" action="/cmnt/getCmntList.do" method="post">
+			<table border="1" style="width: 700px; border-collapse: collapse;">
+				<tr>
+					<td align="right">
+						<select name="searchCondition">
+							<option value="all"
+								<c:if test="${searchCondition eq 'all' || searchCondition eq '' || searchCondition eq null}">
+									selected = "selected"
+								</c:if>
+							>전체</option>
+							<option value="title"
+								<c:if test="${searchCondition eq 'title'}">
+									selected = "selected"
+								</c:if>
+							>제목</option>
+							<option value="content"
+								<c:if test="${searchCondition eq 'content'}">
+									selected = "selected"
+								</c:if>
+							>내용</option>
+							<option value="writer"
+								<c:if test="${searchCondition eq 'writer'}">
+									selected = "selected"
+								</c:if>
+							>작성자</option>
+						</select>
+						<input type="text" name="searchKeyword" value="${searchKeyword}">
+						<button type="submit" id="btnSearch">검색</button>
+					</td>
+				</tr>
+			</table>
+		</form>
 		
+		<table id="boardTable" border="1" style="width: 700px; border-collapse: collapse;">
+			<tr>
+				<th width="5%">번호</th>
+				<th width="50%">제목</th>
+				<th width="10%">작성자</th>
+				<th width="20%">등록일</th>
+				<th width="10%">조회수</th> 
+				<th width="5%">y/n</th>
+			</tr>
+			<c:forEach items="${cmntList}" var="cmnt">
+			<%-- <c:if test="${cmnt.cmntDelYn eq 'Y'}"> --%>
+			<tr>
+				<td>${cmnt.cmntCode}</td>
+				<td><a href="/board/updateCmntCnt.do?CmntCode=${cmnt.cmntCode}">${cmnt.cmntTitle}</a></td>
+				<td>${cmnt.userNickname}</td>
+				<td><fmt:formatDate value="${cmnt.cmntRegdate}" pattern="yyyy-MM-dd"/></td>
+				<td>${cmnt.cmntCnt}</td>
+				<td>${cmnt.cmntDelYn}</td>
+			<tr>
+			<%-- </c:if> --%>
+			</c:forEach>
+		</table>
+		<br>
 		
-		
-        <button type="button" id="btnList" onclick="location.href='cmnt/getCmntList.do'">목록</button>
-        <button type="submit" id="btnInsert">등록</button>
-		<hr/>
-		<a href="/board/getBoardList.do">글 목록</a>
+        <button type="button" onclick="location.href='/cmnt/insertCmnt.do'">등록</button>
 	</div>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>
 </body>

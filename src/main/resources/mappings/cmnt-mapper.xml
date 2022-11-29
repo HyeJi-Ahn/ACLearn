@@ -3,27 +3,61 @@
 
 <mapper namespace="CmntDAO">
 	<select id="getCmntList" resultType="cmnt">
-		SELECT * 
-			FROM AL_COMMUNITY 
+	<![CDATA[
+		SELECT *
+			FROM AL_COMMUNITY
+	]]>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<if test="searchCondition == 'all'">
+				WHERE 1 = 0
+				   OR CMNT_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+				   OR CMNT_CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
+				   OR USER_NICKNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchCondition != 'all'">
+				WHERE 1 = 1
+					<if test="searchCondition == 'title'">
+						AND CMNT_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+					<if test="searchCondition == 'content'">
+						AND CMNT_CONTENTS LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+					<if test="searchCondition == 'writer'">
+						AND USER_NICKNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+				</if>
+			</if>
 	</select>
 	
-	<insert id="addCmnt" parameterType="cmnt">
+	<select id="getCmnt" parameterType="int" resultType="cmnt">
+		SELECT * 
+			FROM AL_COMMUNITY
+			WHERE CMNT_CODE = #{cmntCode}
+	
+	</select>
+	
+	<insert id="insertCmnt" parameterType="cmnt">
+		<selectKey resultType="int" keyProperty="boardNo" order="BEFORE">
+			SELECT IFNULL(MAX(CMNT_CODE), 0) + 1 FROM AL_COMMUNITY
+		</selectKey>
 		INSERT INTO AL_COMMUNITY 
 		VALUES (
-			(SELECT IFNULL(MAX(A.CMNT_NO), 0) + 1 FROM AL_COMMUNITY A),	
+			#{boardNo},
 			#{userId},
 			#{userNickname},
 			#{cmntTitle},
 			#{cmntContents},
-			#{cmntOriImg},
-			#{cmntNowImg},
+			<!-- #{cmntOriImg},
+			#{cmntNowImg}, -->
+			null,
+			null,
 			now(),
 			now(),
 			'Y'	
 		)
 	</insert>
 
-	<update id="updCmnt" parameterType="cmnt">
+	<update id="updateCmnt" parameterType="cmnt">
 		UPDATE AL_COMMUNITY 
 			SET CMNT_TITLE = #{cmntTitle}, 
 				CMNT_CONTENTS = #{cmntContents},
@@ -31,7 +65,19 @@
 			WHERE CMNT_NO = #{cmntNo}
 	</update>
 
+	<!-- 글 조회수 -->
+	<update id="updateBoardCnt" parameterType="int">
+		UPDATE AL_COMMUNITY
+			SET CMNT_CNT = CMNT_CNT + 1
+			WHERE CMNT_NO = #{cmntNo}	
+	</update>
 	
+	<update id="deleteCmnt" parameterType="int">
+		UPDATE AL_COMMUNITY
+			SET CMNT_DEL_YN = 'Y'
+			WHERE CMNT_NO = #{cmntNo}
+	
+	</update>
 
 
 </mapper>

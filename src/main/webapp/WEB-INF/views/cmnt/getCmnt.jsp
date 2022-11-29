@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,54 +27,57 @@
 </head>
 <body>
     <jsp:include page="${pageContext.request.contextPath }/header.jsp"></jsp:include>
+    ${cmnt}
 	<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" id="container">
-		<h3>Ä¿¹Â´ÏÆ¼ »ó¼¼ ÆäÀÌÁö</h3>
+		<h3>ì»¤ë®¤ë‹ˆí‹° ìƒì„¸ í˜ì´ì§€</h3>
 		<form>
 			<table border="1" style="border-collapse: collapse;">
 				<tr>
 					<td style="text-align: left; width: 800px">
-						<p id="cmntTitle">${cmntTitle}</p>
+						<p id="cmntTitle">${cmnt.cmntTitle}</p>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left">
-						<label id="cmntUserId">${userNickname}</label>
-                        <!-- cmntRegdate != cmntModfdate-->
-                        <label id="cmntModfdate">¼öÁ¤ÀÏ : ${cmntModfdate}</label>
-                        <!-- ±âº» Ãâ·Â -->
-                        <label id="cmntRegdate">ÀÛ¼ºÀÏ : ${cmntRegdate}</label>
+						<label id="cmntUserId">${cmnt.userNickname}</label>
+						<!-- ì‘ì„±ì¼ê³¼ ìˆ˜ì •ì¼ì´ ë‹¤ë¥¼ ë•Œ(ìˆ˜ì •ëœ ê²Œì‹œë¬¼ì—ëŠ” ì¶”ê°€ ì¶œë ¥) -->
+                        <c:if test="${cmnt.cmntModfdate ne cmnt.cmntRegdate}">
+                        	<label id="cmntModfdate">ìˆ˜ì •ì¼ : ${cmnt.cmntModfdate}</label>
+                        </c:if>
+                        <!-- ê¸°ë³¸ ì¶œë ¥ -->
+                        <label id="cmntRegdate">ì‘ì„±ì¼ : ${cmnt.cmntRegdate}</label>
                         
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left; width: 800px; height: 500px; ">
-						${cmntContents}
+						${cmnt.cmntContents}
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: center">
-						<div>¢¾</div>
+						<div>â™¥</div>
                         <p>${cmntLike}</p>
 					</td>
 				</tr>
 			</table>
-            <button type="button" id="btnList" class="btnleft" onclick="location.href='getCmntList.html'">¸ñ·Ï</button>
+            <button type="button" id="btnList" class="btnleft" onclick="location.href='getCmntList.do'">ëª©ë¡</button>
             <!-- (session.userId == cmnt.userId) -->
-            <button type="button" id="btnDelete" class="btnRight">»èÁ¦</button>
-            <button type="button" id="btnUpdate" class="btnRight">¼öÁ¤</button>
+            <button type="button" id="btnDelete" class="btnRight">ì‚­ì œ</button>
+            <button type="button" id="btnUpdate" class="btnRight" onclick="location.href='/board/updateCmnt.do?cmntCode=${cmnt.cmntCode}'" >ìˆ˜ì •</button>
 		</form>
 		<hr/>
-        <!-- ´ñ±Û ¿µ¿ª -->
+        <!-- ëŒ“ê¸€ ì˜ì—­ -->
         <div>
-            <!-- ´ñ±Û ÀÔ·Â ¿µ¿ª -->
+            <!-- ëŒ“ê¸€ ì…ë ¥ ì˜ì—­ -->
             <div id="insertReply">
                 <textarea name="replyContent" id="replyContent" cols="90" rows="5"></textarea>
-                <button type="button" id="insertReply" class="insertReply">ÀÔ·Â</button>
+                <button type="button" id="insertReply" class="insertReply">ì…ë ¥</button>
             </div>
-            <!-- ´ñ±Û ¸®½ºÆ® (¸î°³¾¿?? ÆäÀÌÂ¡µµ ÇØ¾ßÇÔ) -->
+            <!-- ëŒ“ê¸€ ë¦¬ìŠ¤íŠ¸ (ëª‡ê°œì”©?? í˜ì´ì§•ë„ í•´ì•¼í•¨) -->
             <!-- -->
             <div>
-                <!--À¯Àú ´Ğ³×ÀÓ, ÀÛ¼º ½Ã°£-->
+                <!--ìœ ì € ë‹‰ë„¤ì„, ì‘ì„± ì‹œê°„-->
                 <div>
                     <div>${userNickname}</div>
                     <div>${rpRegdate}</div>
@@ -82,7 +87,7 @@
                 </div>
 
             </div>
-            <!-- forEach ´İ±â -->
+            <!-- forEach ë‹«ê¸° -->
         </div>
 	</div>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>

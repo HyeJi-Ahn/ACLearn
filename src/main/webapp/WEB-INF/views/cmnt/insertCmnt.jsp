@@ -14,7 +14,7 @@
 	table { 
 		border: 1px solid green; border-collapse: collapse;
 	}
-    #boardTitle {
+    #cmntTitle {
 		width: 780px; height: 30px;
 	}
 	#cmntRegdate {
@@ -28,30 +28,31 @@
     <jsp:include page="${pageContext.request.contextPath }/header.jsp"></jsp:include>
 	<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" id="container">
 		<h3>커뮤니티 글 작성 페이지</h3>
-		<form>
+		<form id="insertCmnt" action="/cmnt/insertCmnt.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="userId" value="HJ"> <!-- ${loginUser.userId} -->
 			<table>
 				<tr>
 					<td style="text-align: left; width: 800px;">
-						<input type="text" name="boardTitle" id="boardTitle" value="제목1">
+						<input type="text" name="cmntTitle" id="cmntTitle" placeholder="제목">
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left">
-						<label id="cmntUserId">작성자 : ${userId} 아이디</label>
+						<label id="userNickname">작성자 : 혜지</label><!-- ${loginUser.userNickname} -->
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left; width: 800px; height: 500px; ">
-						<textarea name="boardContent" id="boardContent" cols="110" rows="30"></textarea>
+						<textarea name="cmntContents" cols="110" rows="30"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align: left">
-						<label for="cmntFile">이미지 업로드 :&nbsp;&nbsp;</label><input type="file" id="cmntFile">
+						<label for="cmntFile">이미지 업로드 :&nbsp;&nbsp;</label><input type="file" >
 					</td>
 				</tr>
 			</table>
-            <button type="button" id="btnList" onclick="location.href='getCmntList.html'">목록</button>
+            <button type="button" id="btnList" onclick="location.href='/cmnt/getCmntList.do'">목록</button>
             <button type="submit" id="btnInsert">등록</button>
 		</form>
 		<hr/>
