@@ -24,7 +24,7 @@
 	<header class="top-nav-bar">
     <a href="/index.jsp" class="logo">Aclearn</a>
     <nav class="nav-bar">
-      <a href="#">강의</a>
+      <a href="/lctr/getLctrList.do">강의</a>
       <a href="#">수강평</a>
       <a href="#">커뮤니티</a>
     </nav>

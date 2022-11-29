@@ -11,12 +11,14 @@
 	<typeAliases>
 		<typeAlias type="com.ezen.aclearn.vo.UserVO" alias="user" />
 		<typeAlias type="com.ezen.aclearn.vo.CmntVO" alias="cmnt" />
+		<typeAlias type="com.ezen.aclearn.vo.LctrVO" alias="lctr" />
 	</typeAliases>
 
 	<!-- 사용할 SQL 매퍼 위치 지정 -->
 	<mappers>
 		<mapper resource="mappings/user-mapper.xml"/>
 		<mapper resource="mappings/cmnt-mapper.xml"/>
+		<mapper resource="mappings/lctr-mapper.xml"/>
 		
 	</mappers>
 </configuration>
