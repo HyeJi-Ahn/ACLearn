@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+/* 푸터 */
+.footer {
+  display: block;
+  padding: 1.3rem;
+  font-size: 0.8rem;
+  background: #303740;
+  color: lightgray;
+}
+
+#footer-p {
+  text-align: center;
+  padding: 3px;
+}
