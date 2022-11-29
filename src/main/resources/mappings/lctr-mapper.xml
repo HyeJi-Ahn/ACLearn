@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LctrDAO">
+	<!-- 쿼리 작성 영역 -->
+	
+	<select id="getLctrList" resultType="lctr">
+		SELECT * FROM AL_LCTR
+	</select>
+
+	<select id="getLctr" parameterType="int" resultType="lctr">
+		SELECT * FROM AL_LCTR
+		WHERE LCTR_CODE = #{lctrCode }
+	</select>
+	
+</mapper>
