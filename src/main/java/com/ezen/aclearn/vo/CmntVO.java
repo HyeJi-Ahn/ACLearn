@@ -13,6 +13,7 @@ public class CmntVO {
 	private Date cmntRegdate;
 	private Date cmntModfdate;
 	private char cmntDelYn;
+	private int cmntCnt;
 
 	public int getCmntCode() {
 		return cmntCode;
@@ -94,14 +95,20 @@ public class CmntVO {
 		this.cmntDelYn = cmntDelYn;
 	}
 
+	public int getCmntCnt() {
+		return cmntCnt;
+	}
+
+	public void setCmntCnt(int cmntCnt) {
+		this.cmntCnt = cmntCnt;
+	}
+
 	@Override
 	public String toString() {
 		return "CmntVO [cmntCode=" + cmntCode + ", userId=" + userId + ", userNickname=" + userNickname + ", cmntTitle="
 				+ cmntTitle + ", cmntContents=" + cmntContents + ", cmntOriImg=" + cmntOriImg + ", cmntNowImg="
 				+ cmntNowImg + ", cmntRegdate=" + cmntRegdate + ", cmntModfdate=" + cmntModfdate + ", cmntDelYn="
-				+ cmntDelYn + "]";
-	}
-
-	
+				+ cmntDelYn + ", cmntCnt=" + cmntCnt + "]";
+	}	
 
 }
